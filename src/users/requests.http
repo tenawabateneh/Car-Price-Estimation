@@ -1,11 +1,24 @@
-### Create a new user
+### Create a new user OR SIGNUP
 
 POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-  "email": "tenaww@tenaw.com",
-  "password":"😂password123"
+  "email": "1234@tenaw.com",
+  "password":"password"
+}
+
+
+
+
+### Login as a user OR SIGNIN
+
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+  "email": "1234@tenaw.com",
+  "password":"password"
 }
 
 
@@ -14,14 +27,21 @@ Content-Type: application/json
 GET http://localhost:3000/auth/3
 
 
+
+
 ### Find all users with a given email
 
 GET http://localhost:3000/auth?email=tenaww@tenaw.com
 
 
+
+
 ### Delete a user for a given id
 
 DELETE http://localhost:3000/auth/8544
+
+
+
 
 ### Update a particular user with a given id
 

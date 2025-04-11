@@ -22,3 +22,6 @@ npm install @nestjs/typeorm typeorm sqlite3
 
 // To install a class-validator package and use it in a dto
 npm install class-validator class-transformer
+
+// To Install Cookie-session
+npm install cookie-session @types/cookie-session
