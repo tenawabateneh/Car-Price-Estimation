@@ -18,6 +18,9 @@ import { UsersService } from './users.service';
 import { UserDto } from './dtos/user.dto';
 
 @Controller('auth')
+// Serialization is a process that happens before objects 
+// are returned in a network response. 
+@Serialize(UserDto)
 export class UsersController {
   constructor(private userSerrvice: UsersService) { }
 
@@ -27,12 +30,9 @@ export class UsersController {
     this.userSerrvice.create(body.email, body.password)
   }
 
-  // Serialization is a process that happens before objects 
-  // are returned in a network response. 
-  @Serialize(UserDto)
   @Get('/:id')
   async findUser(@Param('id') id: string) {
-    console.log("Handler is running")
+    // console.log("Handler is running")
     const user = await this.userSerrvice.findOne(parseInt(id))
     if (!user) {
       throw new NotFoundException("User is not found.")
