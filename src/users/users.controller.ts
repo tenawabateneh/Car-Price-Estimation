@@ -18,8 +18,7 @@ import { UsersService } from './users.service';
 import { UserDto } from './dtos/user.dto';
 
 @Controller('auth')
-// Serialization is a process that happens before objects 
-// are returned in a network response. 
+// Serialization is a process that happens before objects are returned in a network response. 
 @Serialize(UserDto)
 export class UsersController {
   constructor(private userSerrvice: UsersService) { }
