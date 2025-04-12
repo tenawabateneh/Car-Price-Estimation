@@ -9,6 +9,7 @@ import {
   Post,
   Query,
   Session,
+  UseGuards
 } from '@nestjs/common';
 
 import { Serialize } from 'src/interceptors/serialize.interceptor';
@@ -20,6 +21,7 @@ import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { UserEntity } from './user.entity';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('auth')
 // Serialization is a process that happens before objects 
@@ -52,13 +54,9 @@ export class UsersController {
   }
 
   @Get('/currentUser')
-  currentUser(@Session() session: any) {
-    return this.userSerrvice.findOne(session.userId)
-  }
-
-  @Get('/whoami')
-  whoami(@CurrentUser() user: UserEntity) {
-    return user
+  @UseGuards(AuthGuard)
+  currentUser(@CurrentUser() user: UserEntity) {
+    return user;
   }
 
   @Get('/:id')
