@@ -25,3 +25,11 @@ npm install class-validator class-transformer
 
 // To Install Cookie-session
 npm install cookie-session @types/cookie-session
+
+
+// To run the project in a Development-Environment
+npm run start:dev
+
+
+// To run the project in a Testing-Environment
+npm run test:watch
