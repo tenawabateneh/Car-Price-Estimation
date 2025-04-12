@@ -3,7 +3,6 @@ import { randomBytes, scrypt as _scrypt } from "crypto";
 import { promisify } from "util";
 
 import { UsersService } from "./users.service";
-import { Script } from "vm";
 
 const scrypt = promisify(_scrypt)    // for hashing
 

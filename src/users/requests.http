@@ -4,14 +4,14 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-  "email": "1234@tenaw.com",
+  "email": "12534556@tenaw.com",
   "password":"password"
 }
 
 
 
 
-### Login as a user OR SIGNIN
+### Login as existing  user OR SIGNIN
 
 POST http://localhost:3000/auth/signin
 Content-Type: application/json
@@ -20,6 +20,20 @@ Content-Type: application/json
   "email": "1234@tenaw.com",
   "password":"password"
 }
+
+
+
+
+###   Get the currently signed in user
+GET http://localhost:3000/auth/currentUser
+
+
+
+
+### LogOut OR SIGNOUT
+
+POST http://localhost:3000/auth/signout
+
 
 
 ### Find a particular user with a given id
