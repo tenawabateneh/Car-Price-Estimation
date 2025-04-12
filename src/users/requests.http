@@ -29,6 +29,11 @@ GET http://localhost:3000/auth/currentUser
 
 
 
+###   Get to know who am i?
+GET http://localhost:3000/auth/whoami
+
+
+
 
 ### LogOut OR SIGNOUT
 
