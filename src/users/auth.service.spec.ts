@@ -3,14 +3,16 @@ import { Test } from "@nestjs/testing";
 import { AuthService } from "./auth.service";
 import { UsersService } from "./users.service";
 import { UserEntity } from "./user.entity";
-import { Equal } from "typeorm";
+import { BadRequestException, NotFoundException } from "@nestjs/common";
+
 
 describe("AuthService Unit-Testing", () => {
   let service: AuthService
+  let fakeUsersService: Partial<UsersService>
 
   beforeEach(async () => {
     // Create a fake copy of UsersService
-    const fakeUsersService: Partial<UsersService> = {
+    fakeUsersService = {
       find: () => Promise.resolve([]),
       create: (email: string, password: string) =>
         Promise.resolve({ id: 1, email, password } as UserEntity)
@@ -42,5 +44,20 @@ describe("AuthService Unit-Testing", () => {
     expect(salt).toBeDefined()
     expect(hash).toBeDefined()
   })
+
+  it("Throws an error whenever user SIGNUP with email that is INUSE", async () => {
+    fakeUsersService.find = () =>
+      Promise.resolve([{ id: 1, email: "dF", password: "ad" } as UserEntity])
+
+    await expect(service.signUp("test@test.com", "asdf")).rejects.toThrow(
+      BadRequestException,
+    );
+  })
+
+  it('Throws an error if signin is called with an unused email', async () => {
+    await expect(
+      service.signIn('asdflkj@asdlfkj.com', 'passdflkj'),
+    ).rejects.toThrow(NotFoundException);
+  });
 
 })
