@@ -18,6 +18,7 @@ import { UpdateUSerDto } from './dtos/update-user.dto';
 import { UsersService } from './users.service';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
+import { CurrentUser } from './decorators/current-user.decorator';
 
 @Controller('auth')
 // Serialization is a process that happens before objects 
@@ -52,6 +53,11 @@ export class UsersController {
   @Get('/currentUser')
   currentUser(@Session() session: any) {
     return this.userSerrvice.findOne(session.userId)
+  }
+
+  @Get('/whoami')
+  whoami(@CurrentUser() user: string) {
+    return user
   }
 
   @Get('/:id')
