@@ -12,10 +12,24 @@ describe("AuthService Unit-Testing", () => {
 
   beforeEach(async () => {
     // Create a fake copy of UsersService
+
+    const users: UserEntity[] = []
     fakeUsersService = {
-      find: () => Promise.resolve([]),
-      create: (email: string, password: string) =>
-        Promise.resolve({ id: 1, email, password } as UserEntity)
+      find: (email: string) => {
+
+        const filteredUsers = users.filter((user) => user.email === email)
+        return Promise.resolve(filteredUsers)
+      },
+      create: (email: string, password: string) => {
+        const user = {
+          id: Math.floor(Math.random() * 999999),
+          email,
+          password
+        } as UserEntity;
+        users.push(user)
+
+        return Promise.resolve(user)
+      }
     };
 
     const module = await Test.createTestingModule({
@@ -45,37 +59,32 @@ describe("AuthService Unit-Testing", () => {
     expect(hash).toBeDefined()
   })
 
+
   it("Throws an error whenever user SIGNUP with email that is INUSE", async () => {
-    fakeUsersService.find = () =>
-      Promise.resolve([{ id: 1, email: "dF", password: "ad" } as UserEntity])
+    await service.signUp("test@test.com", "asdf")
 
     await expect(service.signUp("test@test.com", "asdf")).rejects.toThrow(
       BadRequestException,
     );
   })
 
+
   it('Throws an error if signin is called with an unused email', async () => {
     await expect(
-      service.signIn('asdflkj@asdlfkj.com', 'passdflkj'),
+      service.signIn('asdflkj@as;dlfkj.com', 'passdflkj'),
     ).rejects.toThrow(NotFoundException);
   });
 
+
   it("Throws an error if invalide password is provided", async () => {
-    fakeUsersService.find = () => Promise.resolve([{
-      email: "test@test.com", password: "password12"
-    } as UserEntity
-    ])
-    await expect(service.signIn("jdlklk@jjdfj.com", "ioeriri"))
+    await service.signUp("demo@demo.com", "password")
+    await expect(service.signIn("demo@demo.com", "ioeriri"))
       .rejects.toThrow(BadRequestException)
   })
 
 
   it("Return a USER if correct password is provided", async () => {
-    fakeUsersService.find = () => Promise.resolve([{
-      email: "test@test.com",
-      password: '11f1fbcc5cb485b4.cc2f6b639ec965eeb032d3795b6c5afbf5aa034513d43d6ab2d455a171185594'
-    } as UserEntity
-    ])
+    await service.signUp("test@test.com", "mypassword")
 
     const user = await service.signIn("test@test.com", "mypassword")
     expect(user).toBeDefined()
