@@ -60,4 +60,25 @@ describe("AuthService Unit-Testing", () => {
     ).rejects.toThrow(NotFoundException);
   });
 
+  it("Throws an error if invalide password is provided", async () => {
+    fakeUsersService.find = () => Promise.resolve([{
+      email: "test@test.com", password: "password12"
+    } as UserEntity
+    ])
+    await expect(service.signIn("jdlklk@jjdfj.com", "ioeriri"))
+      .rejects.toThrow(BadRequestException)
+  })
+
+
+  it("Return a USER if correct password is provided", async () => {
+    fakeUsersService.find = () => Promise.resolve([{
+      email: "test@test.com",
+      password: '11f1fbcc5cb485b4.cc2f6b639ec965eeb032d3795b6c5afbf5aa034513d43d6ab2d455a171185594'
+    } as UserEntity
+    ])
+
+    const user = await service.signIn("test@test.com", "mypassword")
+    expect(user).toBeDefined()
+
+  })
 })
