@@ -9,7 +9,6 @@ import {
   Post,
   Query,
   Session,
-  UseInterceptors
 } from '@nestjs/common';
 
 import { Serialize } from 'src/interceptors/serialize.interceptor';
@@ -20,14 +19,12 @@ import { UsersService } from './users.service';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
-import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 import { UserEntity } from './user.entity';
 
 @Controller('auth')
 // Serialization is a process that happens before objects 
 // are returned in a network response. 
 @Serialize(UserDto)
-@UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   constructor(
     private userSerrvice: UsersService,
