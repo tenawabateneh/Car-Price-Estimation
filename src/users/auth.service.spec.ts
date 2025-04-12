@@ -3,6 +3,7 @@ import { Test } from "@nestjs/testing";
 import { AuthService } from "./auth.service";
 import { UsersService } from "./users.service";
 import { UserEntity } from "./user.entity";
+import { Equal } from "typeorm";
 
 describe("AuthService Unit-Testing", () => {
   let service: AuthService
@@ -30,6 +31,16 @@ describe("AuthService Unit-Testing", () => {
 
   it("Can create an instance of AuthService", async () => {
     expect(service).toBeDefined()
+  })
+
+
+  it('Creates a new user with salted and hased password', async () => {
+    const user = await service.signUp("test@test.com", "asdf")
+
+    expect(user.password).not.toEqual('asdf')
+    const [salt, hash] = user.password.split('.')
+    expect(salt).toBeDefined()
+    expect(hash).toBeDefined()
   })
 
 })
