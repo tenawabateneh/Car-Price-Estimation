@@ -13,6 +13,9 @@ const cookieSession = require('cookie-session')
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
+      //  Creating Separate Test and Dev Databases to Solve Failures Around Repeat Test Runs
+      // Here's below the way in comment section: 
+      //  database: process.env.NODE_ENV === 'test' ? 'test.sqlite' : 'db.sqlite',
       database: 'db.sqlite',
       entities: [UserEntity, ReportEntity],
       synchronize: true,
