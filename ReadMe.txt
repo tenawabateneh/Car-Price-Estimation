@@ -31,5 +31,9 @@ npm install cookie-session @types/cookie-session
 npm run start:dev
 
 
-// To run the project in a Testing-Environment
+// To run the project in a Testing-Environment for Unit-TEsting
 npm run test:watch
+
+
+// To run the project in a Testing-Environment for Integration-Testing(end-to-end testing)
+npm run test:e2e
