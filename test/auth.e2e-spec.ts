@@ -4,7 +4,6 @@ import * as request from 'supertest';
 import { App } from 'supertest/types';
 import { AppModule } from '../src/app.module';
 
-import { setupApp } from '../src/setup-app';
 
 describe('Authentication System E2E Testing Starts Here...', () => {
   let app: INestApplication<App>;
@@ -15,12 +14,11 @@ describe('Authentication System E2E Testing Starts Here...', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    setupApp(app)
     await app.init();
   });
 
   it('Handles a SIGNUP request', () => {
-    const email = "newr@new.com";
+    const email = "new@new2.com";
     return request(app.getHttpServer())
       .post("/auth/signup")
       .send({ email, password: "password" })
