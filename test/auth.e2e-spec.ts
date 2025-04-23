@@ -29,4 +29,28 @@ describe('Authentication System E2E Testing Starts Here...', () => {
         expect(email).toEqual(email)
       })
   });
+
+  it('Signup as a new user then get currently logged in user', async () => {
+    const email = "asdf@asdf.com"
+
+    const resp = await request(app.getHttpServer())
+      .post('/auth/signup')
+      .send({ email, password: "asdf" })
+      .expect(201)
+
+    const cookie = resp.get('Set-Cookie')
+    if (!cookie) {
+      throw new Error("No cookie returned from SIGNUP response")
+    }
+    // optional, adds a clear assertion for debugging
+    expect(cookie).toBeDefined()
+
+    const { body } = await request(app.getHttpServer())
+      .get('/auth/currentUser')
+      .set('Cookie', cookie)
+      .expect(200)
+
+    // email should equal @ the top in the test
+    expect(body.email).toEqual(email)
+  })
 });
