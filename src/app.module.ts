@@ -1,5 +1,6 @@
 import { MiddlewareConsumer, Module, ValidationPipe } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -11,15 +12,33 @@ import { ReportEntity } from './reports/report.entity';
 const cookieSession = require('cookie-session')
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      //  Creating Separate Test and Dev Databases to Solve Failures Around Repeat Test Runs
-      // Here's below the way in comment section: 
-      //  database: process.env.NODE_ENV === 'test' ? 'test.sqlite' : 'db.sqlite',
-      database: 'db.sqlite',
-      entities: [UserEntity, ReportEntity],
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
+
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return {
+          type: 'sqlite',
+          //  Creating Separate Test and Dev Databases through parssing dynamically
+          database: config.get<string>('DB_NAME'),
+          synchronize: true,
+          entities: [UserEntity, ReportEntity],
+        }
+      }
+    }),
+
+    // TypeOrmModule.forRoot({
+    //   type: 'sqlite',
+    //   //  Creating Separate Test and Dev Databases to Solve Failures Around Repeat Test Runs
+    //   // Here's below the way in comment section: 
+    //   //  database: process.env.NODE_ENV === 'test' ? 'test.sqlite' : 'db.sqlite',
+    //   database: 'db.sqlite',
+    //   entities: [UserEntity, ReportEntity],
+    //   synchronize: true,
+    // }),
     UsersModule,
     ReportsModule
   ],

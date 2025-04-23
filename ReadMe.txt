@@ -19,6 +19,10 @@ nest g controller reports
 // To install TYPEORM and Sqlite
 npm install @nestjs/typeorm typeorm sqlite3
 
+// To run sqlite DB, 
+// First create a new file 'db.sqlite' where you want
+-- GO --> view  -> command palette -> write: SQLite Database  -> click on
+ the current dir which 'db.sqlite' where found ---> you'll get the DB in VSEditor: left-bottom side as 'SQLITE EXPLORER'
 
 // To install a class-validator package and use it in a dto
 npm install class-validator class-transformer
@@ -37,3 +41,16 @@ npm run test:watch
 
 // To run the project in a Testing-Environment for Integration-Testing(end-to-end testing)
 npm run test:e2e
+
+
+// To Install ConfigService
+npm install @nestjs/config
+
+
+
+
+// To Install cross-env
+// This library allowing us to setup d/t environment variables
+npm install cross-env
+
+
