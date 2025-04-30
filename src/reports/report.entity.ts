@@ -20,6 +20,9 @@ export class ReportEntity {
   make: string;
 
   @Column()
+  model: string;
+
+  @Column()
   year: number
 
   @Column()
