@@ -22,6 +22,9 @@ export class UserEntity {
   @Column()
   password: string;
 
+  @Column({ default: true })
+  admin: boolean;
+
   // Make a relationship with the Report entity
   @OneToMany(() => ReportEntity, (repo) => repo.user)
   reports: ReportEntity;
