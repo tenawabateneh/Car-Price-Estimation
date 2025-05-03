@@ -1,6 +1,6 @@
 import { IsLatitude, IsLongitude, IsNumber, IsString, Max, Min } from "class-validator"
 
-export class CreateReportDto {
+export class GetEstimatePriceDto {
   @IsString()
   make: string
 
@@ -22,9 +22,4 @@ export class CreateReportDto {
 
   @IsLatitude()
   lat: number
-
-  @IsNumber()
-  @Min(100000)
-  @Max(10000000)
-  price: number
 }
