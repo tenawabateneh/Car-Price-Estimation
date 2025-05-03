@@ -33,10 +33,17 @@ export class ReportsService {
     return this.repo.save(report)
   }
 
-  createEstimatePrice = (estimateDto: GetEstimatePriceDto) => {
+  createEstimatePrice = ({ make, model, year, lng, lat, mileage }: GetEstimatePriceDto) => {
     return this.repo.createQueryBuilder()
-      .select('*')
-      .where('make=:make', { make: estimateDto.make })
-      .getRawMany()
+      .select('AVG(price)', 'price')
+      .where('make=:make', { make })
+      .andWhere('model= :model', { model })
+      .andWhere('lng - :lng BETWEEN -5 AND 5', { lng })
+      .andWhere('lat - :lat BETWEEN -5 AND 5', { lat })
+      .andWhere('year - :year BETWEEN -3 AND 3', { year })
+      .orderBy('ABS(mileage - :mileage)', 'DESC')
+      .setParameters({ mileage })
+      .limit(3)
+      .getRawOne()
   }
 }
