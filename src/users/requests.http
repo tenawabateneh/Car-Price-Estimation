@@ -4,7 +4,7 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-  "email": "1253455678@tenaw.com",
+  "email": "125345567@tenaw.com",
   "password":"password"
 }
 
@@ -17,7 +17,7 @@ POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-  "email": "1234@tenaw.com",
+  "email": "125345567@tenaw.com",
   "password":"password"
 }
 

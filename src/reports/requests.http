@@ -10,7 +10,7 @@
   "lng": 0,
   "lat": 0,
   "price": 500000
- },
+ }
 
 ### Approve an existing report
  PATCH http://localhost:3000/reports/2
