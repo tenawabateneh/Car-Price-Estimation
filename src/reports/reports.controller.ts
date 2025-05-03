@@ -31,6 +31,6 @@ export class ReportsController {
 
   @Get()
   getEstimatePrice(@Query() query: GetEstimatePriceDto) {
-    console.log(query)
+    console.log("Car Estimate Price Query Parameters: ", query)
   }
 }
