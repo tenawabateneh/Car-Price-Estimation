@@ -22,7 +22,7 @@ switch (process.env.NODE_ENV) {
       migrationsRun: true
     })
     break;
-  case 'production':
+  case 'production': // THe update is here by Production DB Config
     Object.assign(dbConfig, {
       type: 'postgres',
       url: process.env.DATABASE_URL,
