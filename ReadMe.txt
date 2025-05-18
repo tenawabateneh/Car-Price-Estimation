@@ -53,4 +53,13 @@ npm install @nestjs/config
 // This library allowing us to setup d/t environment variables
 npm install cross-env
 
+// To create migration
+npm run typeorm migration:generate -- -n migrationNameHere
+//  If doesn't work this:
+#: Use tsconfig-paths for Module Resolution
+//If you're using path aliases (e.g., @/), install tsconfig-paths:
 
+npm install --save-dev tsconfig-paths
+
+//Then run the migration with ts-node and tsconfig-paths:
+npx ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate ./migrations/initial-schema -d src/data-source.ts -o
