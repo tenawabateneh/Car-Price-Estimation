@@ -8,7 +8,7 @@ import {
   OneToMany
 } from "typeorm"
 
-import { ReportEntity } from "src/reports/report.entity";
+import { ReportEntity } from "../reports/report.entity";
 
 @Entity()
 export class UserEntity {

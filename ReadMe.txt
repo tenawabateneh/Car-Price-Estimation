@@ -63,3 +63,15 @@ npm install --save-dev tsconfig-paths
 
 //Then run the migration with ts-node and tsconfig-paths:
 npx ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate ./migrations/initial-schema -d src/data-source.ts -o
+
+
+// Reset and Re-run Migrations Properly
+// 1. First, revert all migrations:
+npx ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d src/data-source.ts
+
+// 2. Then run them again:
+npm run migrate:show
+npm run migrate:revert
+npm run migrate:run
+
+
